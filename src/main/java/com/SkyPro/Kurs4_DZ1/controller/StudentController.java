@@ -5,6 +5,7 @@ import com.SkyPro.Kurs4_DZ1.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -49,4 +50,18 @@ public class StudentController {
     public Collection<Student> getByFaculty (@RequestParam Long facultyId){
         return studentService.getByFacultyId(facultyId);
     }
+    @GetMapping("/count")
+    public long count(){
+        return studentService.count();
+    }
+    @GetMapping("/average")
+    public double average(){
+        return studentService.average();
+    }
+    @GetMapping("/last-five")
+    public List<Student>  getLastFive()  {
+        return studentService.getLastStudent(5);
+    }
+
+
     }
