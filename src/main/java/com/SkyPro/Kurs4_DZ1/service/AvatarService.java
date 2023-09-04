@@ -5,6 +5,8 @@ import com.SkyPro.Kurs4_DZ1.model.Student;
 import com.SkyPro.Kurs4_DZ1.repository.AvatarRepository;
 import com.SkyPro.Kurs4_DZ1.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 @Service
 public class AvatarService {
@@ -55,6 +58,11 @@ private Path pathToAvatars;
         avatar.setData(multipartFile.getBytes());
         avatarRepository.save(avatar);
         return avatar;
+    }
+
+    public List<Avatar> getPage(int pageNum){
+        PageRequest pageRequest = PageRequest.of(pageNum, 3);
+        return avatarRepository.findAll(pageRequest).getContent();
     }
 }
 
